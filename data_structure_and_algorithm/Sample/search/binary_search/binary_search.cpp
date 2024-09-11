@@ -1,6 +1,9 @@
-// @ 核心代码
+// @ 二分查找的核心代码
+
 // ~ 前提条件是已完成排序
-// ~ 
+// ~ 时间复杂度是logn
+// ~ 空间复杂度是1
+
 // 左闭右闭
 // int BinarySearch(vector<int> vec, int target)
 // {
@@ -73,12 +76,7 @@ int main(void)
 
 inline bool CmpLess(int a, int b)
 {
-    return a < b;
-}
-
-inline bool CmpGreater(int a, int b)
-{
-    return a > b;
+    a > b;
 }
 
 int BinarySearch(vector<int> vec, int target)
