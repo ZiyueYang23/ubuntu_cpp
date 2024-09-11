@@ -2121,56 +2121,55 @@
 //     }
 //     return 0;
 // }
-#include <iostream>
-#include <string>
-using namespace std;
+// #include <iostream>
+// #include <string>
+// using namespace std;
 
-int main()
-{
-    int n;
-    std::cout << "请输入一个数字：";
-    std::cin >> n;
+// int main()
+// {
+//     int n;
+//     std::cout << "请输入一个数字：";
+//     std::cin >> n;
 
+//     for (int i = 0; i < n; i++)
+//     {
+//         for (int j = 0; j < n - i; j++)
+//         {
+//             cout << "*";
+//         }
+//         for (int j = n-i; j < n;j++)
+//         {
+//             cout << " "<<" ";
+//         }
+//         for (int j = 0; j < n - i; j++)
+//         {
+//             cout << "*";
+//         }
+//         cout << "\n";
+//     }
+//     for (int i = n-2; i >=0; i--)
+//     {
+//         for (int j = 0; j < n - i;j++)
+//         {
+//             cout << "*";
+//         }
 
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n - i; j++)
-        {
-            cout << "*";
-        }
-        for (int j = n-i; j < n;j++)
-        {
-            cout << " "<<" ";
-        }
-        for (int j = 0; j < n - i; j++)
-        {
-            cout << "*";
-        }
-        cout << "\n";
-    }
-    for (int i = n-2; i >=0; i--)
-    {
-        for (int j = 0; j < n - i;j++)
-        {
-            cout << "*";
-        }
+//         for (int j = 0; j < i ;j++)
+//         {
+//             cout << " "
+//                  << " ";
+//         }
 
-        for (int j = 0; j < i ;j++)
-        {
-            cout << " "
-                 << " ";
-        }
+//         for (int j = 0; j < n - i; j++)
+//         {
+//             cout << "*";
+//         }
 
-        for (int j = 0; j < n - i; j++)
-        {
-            cout << "*";
-        }
+//         cout << "\n";
+//     }
 
-        cout << "\n";
-    }
-
-    return 0;
-}
+//     return 0;
+// }
 
 // #include <iostream>
 // #include <vector>
@@ -2201,3 +2200,113 @@ int main()
 
 //     return 0;
 // }
+
+// // 实现 MyLinkedList 类：
+
+// #include <iostream>
+// using namespace std;
+
+// struct MyLinkedNode
+// {
+//     int val_;
+//     MyLinkedNode *next_;
+//     MyLinkedNode()
+//         : val_(0), next_(nullptr) {}
+// };
+
+// class MyLinkedList
+// {
+// private:
+//     MyLinkedNode *head_;
+
+// public:
+//     //     MyLinkedList() 初始化 MyLinkedList 对象。
+//     MyLinkedList()
+//         : head_(nullptr) {}
+//     //     int get(int index) 获取链表中下标为 index 的节点的值。如果下标无效，则返回
+//     int get(int index);
+//     //     void addAtHead(int val) 将一个值为 val 的节点插入到链表中第一个元素之前。在插入完成后，新节点会成为链表的第一个节点。
+//     void addAtHead(int val);
+//     //     void addAtTail(int val) 将一个值为 val 的节点追加到链表中作为链表的最后一个元素。
+//     void addAtTail(int val);
+//     //     void addAtIndex(int index, int val) 将一个值为 val 的节点插入到链表中下标为 index 的节点之前。如果 index 等于链表的长度，那么该节点会被追加到链表的末尾。如果 index 比长度更大，该节点将 不会插入 到链表中。
+//     void addAtIndex(int index, int val);
+//     //     void deleteAtIndex(int index) 如果下标有效，则删除链表中下标为 index 的节点。
+//     void deleteAtIndex(int index);
+// };
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+// 小到大
+inline bool CmpLess(int a, int b);
+// 大到小
+inline bool CmpGreater(int a, int b);
+// 左闭右闭
+int BinarySearch(vector<int> vec, int target);
+
+int main(void)
+{
+    vector<int> nums1{1, 2, 3, 5, 4, 3, 2, 6, 8, 9, 2, 4, 8};
+    vector<int> nums2{9, 1, 2, 4, 6, 7, 8, 3, 2, 3, 4, 7};
+    // 首地址 尾地址 比较函数的地址
+    sort(nums1.begin(), nums1.end(), CmpLess);
+    sort(nums2.begin(), nums2.end(), CmpGreater);
+    for (auto num : nums1)
+    {
+        cout << num << " ";
+    }
+    cout << endl;
+    for (auto num : nums2)
+    {
+        cout << num << " ";
+    }
+    cout << endl;
+    // 翻转函数
+    reverse(nums2.begin(), nums2.end());
+    for (auto num : nums2)
+    {
+        cout << num << " ";
+    }
+    cout << endl;
+    cout << BinarySearch(nums1, 1000) << endl;
+    return 0;
+}
+
+inline bool CmpLess(int a, int b)
+{
+    return a < b;
+}
+
+inline bool CmpGreater(int a, int b)
+{
+    return a > b;
+}
+
+int BinarySearch(vector<int> vec, int target)
+{
+    int i(0);
+    int j(vec.size() - 1);
+    while (i <= j)
+    {
+        // 小细节 防止int类型越界
+        int middle = i + (j - i) / 2;
+
+        if (vec[middle] == target)
+        {
+            return middle;
+        }
+        else if (vec[middle] < target)
+        {
+            i = middle + 1;
+        }
+        else if (vec[middle] > target)
+        {
+            j = middle - 1;
+        }
+    }
+    return -1;
+}
