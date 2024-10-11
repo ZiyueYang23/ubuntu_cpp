@@ -2,7 +2,7 @@
 // ~ 时间复杂度是n的平方
 // ~ 空间复杂度是1
 // ~ 默认小到大
-// void BubbleSort(vector<int> &nums)
+// void BubbleSort(std::vector<int> &nums)
 // {
 //     int size(nums.size());
 //     // 优化算法
@@ -38,27 +38,26 @@
 #include <vector>
 #include <utility>
 
-using namespace std;
 
-void BubbleSort(vector<int> &nums);
+void BubbleSort(std::vector<int> &nums);
 
 int main(void)
 {
-    vector<int> nums{9, 3, 5, 2, 4, 1, 5, 6, 2, 4, 9};
+    std::vector<int> nums{9, 3, 5, 2, 4, 1, 5, 6, 2, 4, 9};
     for (auto num : nums)
     {
-        cout << num << " ";
+        std::cout << num << " ";
     }
-    cout << endl;
+    std::cout << std::endl;
     BubbleSort(nums);
     for (auto num : nums)
     {
-        cout << num << " ";
+        std::cout << num << " ";
     }
-    cout << endl;
+    std::cout << std::endl;
     return 0;
 }
-void BubbleSort(vector<int> &nums)
+void BubbleSort(std::vector<int> &nums)
 {
     int size(nums.size());
     // 优化算法
@@ -74,7 +73,7 @@ void BubbleSort(vector<int> &nums)
             // 左边比右边大就交换
             if (nums[j] > nums[j + 1])
             {
-                swap(nums[j], nums[j + 1]);
+                std::swap(nums[j], nums[j + 1]);
                 flag = true;
             }
         }

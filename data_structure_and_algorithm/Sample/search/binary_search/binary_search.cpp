@@ -5,7 +5,7 @@
 // ~ 空间复杂度是1
 
 // 左闭右闭
-// int BinarySearch(vector<int> vec, int target)
+// int BinarySearch(std::vector<int> vec, int target)
 // {
 //     int i(0);
 //     int j(vec.size() - 1);
@@ -36,50 +36,52 @@
 #include <algorithm>
 #include <vector>
 
-using namespace std;
-
 // 小到大
 inline bool CmpLess(int a, int b);
 // 大到小
 inline bool CmpGreater(int a, int b);
 // 左闭右闭
-int BinarySearch(vector<int> vec, int target);
+int BinarySearch(std::vector<int> vec, int target);
 
 int main(void)
 {
-    vector<int> nums1{1, 2, 3, 5, 4, 3, 2, 6, 8, 9, 2, 4, 8};
-    vector<int> nums2{9, 1, 2, 4, 6, 7, 8, 3, 2, 3, 4, 7};
+    std::vector<int> nums1{1, 2, 3, 5, 4, 3, 2, 6, 8, 9, 2, 4, 8};
+    std::vector<int> nums2{9, 1, 2, 4, 6, 7, 8, 3, 2, 3, 4, 7};
     // 首地址 尾地址 比较函数的地址
     // sort 默认是小到大的排序
     sort(nums1.begin(), nums1.end(), CmpLess);
     sort(nums2.begin(), nums2.end(), CmpGreater);
     for (auto num : nums1)
     {
-        cout << num << " ";
+        std::cout << num << " ";
     }
-    cout << endl;
+    std::cout << std::endl;
     for (auto num : nums2)
     {
-        cout << num << " ";
+        std::cout << num << " ";
     }
-    cout << endl;
+    std::cout << std::endl;
     // 翻转函数
     reverse(nums2.begin(), nums2.end());
     for (auto num : nums2)
     {
-        cout << num << " ";
+        std::cout << num << " ";
     }
-    cout << endl;
-    cout << BinarySearch(nums1, 1000) << endl;
+    std::cout << std::endl;
+    std::cout << BinarySearch(nums1, 1000) << std::endl;
     return 0;
 }
 
 inline bool CmpLess(int a, int b)
 {
-    a > b;
+    return a > b;
 }
 
-int BinarySearch(vector<int> vec, int target)
+inline bool CmpGreater(int a, int b)
+{
+    return a < b;
+}
+int BinarySearch(std::vector<int> vec, int target)
 {
     int i(0);
     int j(vec.size() - 1);

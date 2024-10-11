@@ -4,11 +4,11 @@
 // ~ 以及尾递归优化 这个地方可以再仔细体会体会
 // ~ 其中最重要的是哨兵划分部分的代码
 // ~ 分治思想的运用 采用递归的方式
-// int Partition(vector<int> &nums, int left, int right)
+// int Partition(std::vector<int> &nums, int left, int right)
 // {
 //     // 先取到合适的基数 将其放到最左端作为基数
 //     int mid = GetMedian(nums, left, (left + right) / 2, right);
-//     Swap(nums, left, mid);
+//     std::Swap(nums, left, mid);
 //     // 左右哨兵
 //     int i = left;
 //     int j = right;
@@ -25,16 +25,16 @@
 //             i++;
 //         }
 //         // 当内循环结束时，左右哨兵处在各自方向上首个需要交换的位置
-//         Swap(nums, i, j);
+//         std::Swap(nums, i, j);
 //         // 交换完后此时i j位置上元素符合标准则继续进行往后走
 //     }
 //     // 最终i与j处在同一个位置上，结束此次哨兵划分
 //     // 由于右边哨兵先走 所以j一定是停留在首个小于基数的元素，最后的情况左边的哨兵会与右边哨兵重合i=j于是结束循环
 //     // 而此时这个元素的值一定是小于基数的 因此交换i 与left，把基数换到中间去，这个元素去最左端
-//     Swap(nums, i, left);
+//     std::Swap(nums, i, left);
 //     return i;
 // }
-// void QuickSort(vector<int> &nums, int left, int right)
+// void QuickSort(std::vector<int> &nums, int left, int right)
 // {
 //     while (left < right)
 //     {
@@ -60,34 +60,32 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
-
-void Swap(vector<int> &nums, int i, int j);
+void Swap(std::vector<int> &nums, int i, int j);
 // 优化算法 尽可能的选择不大不小的数作为基数
-int GetMedian(vector<int> &nums, int left, int mid, int right);
+int GetMedian(std::vector<int> &nums, int left, int mid, int right);
 // 哨兵划分 分成两个子数组
-int Partition(vector<int> &nums, int left, int right);
+int Partition(std::vector<int> &nums, int left, int right);
 // 递归
-void QuickSort(vector<int> &nums, int left, int right);
+void QuickSort(std::vector<int> &nums, int left, int right);
 
 int main(void)
 {
-    vector<int> nums{9, 3, 5, 2, 4, 1, 5, 6, 2, 4, 9};
+    std::vector<int> nums{9, 3, 5, 2, 4, 1, 5, 6, 2, 4, 9};
     for (auto num : nums)
     {
-        cout << num << " ";
+        std::cout << num << " ";
     }
-    cout << endl;
+    std::cout << std::endl;
     QuickSort(nums, 0, nums.size() - 1);
     for (auto num : nums)
     {
-        cout << num << " ";
+        std::cout << num << " ";
     }
-    cout << endl;
+    std::cout << std::endl;
     return 0;
 }
 
-void Swap(vector<int> &nums, int i, int j)
+void Swap(std::vector<int> &nums, int i, int j)
 {
     // 也可以用三个异或 效率其实差不多 而且处理不了相等元素
     int temp(nums[i]);
@@ -95,7 +93,7 @@ void Swap(vector<int> &nums, int i, int j)
     nums[j] = temp;
 }
 
-int GetMedian(vector<int> &nums, int left, int mid, int right)
+int GetMedian(std::vector<int> &nums, int left, int mid, int right)
 {
     // 非常巧妙的异或
     // 异或是0^0=1^1=0,0^1=1^0=1
@@ -114,7 +112,7 @@ int GetMedian(vector<int> &nums, int left, int mid, int right)
         return right;
     }
 }
-int Partition(vector<int> &nums, int left, int right)
+int Partition(std::vector<int> &nums, int left, int right)
 {
     // 先取到合适的基数 将其放到最左端作为基数
     int mid = GetMedian(nums, left, (left + right) / 2, right);
@@ -144,7 +142,7 @@ int Partition(vector<int> &nums, int left, int right)
     Swap(nums, i, left);
     return i;
 }
-void QuickSort(vector<int> &nums, int left, int right)
+void QuickSort(std::vector<int> &nums, int left, int right)
 {
     while (left < right)
     {

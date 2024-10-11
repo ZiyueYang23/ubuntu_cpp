@@ -2690,3 +2690,366 @@
 //         return stack_top->val_;
 //     }
 // }
+
+// // @ 动态数组简易实现哈希表
+// // 未完待续
+// #include <iostream>
+// #include <vector>
+// #include <string>
+// // pair 头文件
+// #include <utility>
+
+// struct Pair
+// {
+//     int key_;
+//     std::string val_;
+//     Pair(int key, std::string val)
+//         : key_(key), val_(val) {}
+// };
+
+// class VectorHashMap
+// {
+// private:
+//     // 桶
+//     std::vector<Pair *> buckets_;
+//     // 键值对数量
+//     int size_;
+//     // 哈希表容量
+//     int capacity_;
+//     // 触发扩容的负载因子阈值
+//     double load_thres_;
+//     // 扩容倍数
+//     int extend_ratio_;
+
+// public:
+//     VectorHashMap()
+//         : size_(0), capacity_(100), load_thres_(size_ / capacity_), extend_ratio_(2), buckets_(std::vector<Pair *>(capacity_)) {}
+//     ~VectorHashMap();
+//     void Push();
+// };
+// int mian(void)
+// {
+//     return 0;
+// }
+
+// 第一题
+// @ 法一暴力法
+// 时间复杂度为 n*n
+// 测试集丰富 相当细节
+#include <iostream>
+
+struct LinkedNode
+{
+    int val;
+    LinkedNode *next;
+    LinkedNode(int num = 0) : val(num), next(nullptr) {}
+};
+// 引用这里有一点问题 为何不加引用出函数head_a的值就会变成一个很大的数字
+void Solution(LinkedNode *&head_a, LinkedNode *head_b);
+
+int main(void)
+{
+    // LinkedNode *head_a = new LinkedNode(2);
+    // head_a->next = new LinkedNode(4);
+    // head_a->next->next = new LinkedNode(6);
+    // head_a->next->next->next = new LinkedNode(8);
+
+    // LinkedNode *head_a = new LinkedNode(4);
+    // head_a->next = new LinkedNode(6);
+    // head_a->next->next = new LinkedNode(8);
+    // head_a->next->next->next = new LinkedNode(10);
+
+    // LinkedNode *head_a = new LinkedNode(6);
+    // head_a->next = new LinkedNode(8);
+    // head_a->next->next = new LinkedNode(10);
+    // head_a->next->next->next = new LinkedNode(12);
+
+    LinkedNode *head_a = new LinkedNode(8);
+    head_a->next = new LinkedNode(10);
+    head_a->next->next = new LinkedNode(12);
+    head_a->next->next->next = new LinkedNode(14);
+
+    LinkedNode *head_b = new LinkedNode(4);
+    head_b->next = new LinkedNode(6);
+    head_b->next->next = new LinkedNode(8);
+    head_b->next->next->next = new LinkedNode(10);
+    Solution(head_a, head_b);
+
+    LinkedNode *temp = head_a;
+
+    while (temp != nullptr)
+    {
+        std::cout << temp->val << " ";
+        temp = temp->next;
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+void Solution(LinkedNode *&head_a, LinkedNode *head_b)
+{
+    LinkedNode *p_a(head_a);
+    LinkedNode *p_b(head_b);
+
+    while (p_a != nullptr)
+    {
+        p_b = head_b;
+        bool flag = 1;
+        int a_val = p_a->val;
+        while (p_b != nullptr)
+        {
+            int b_val = p_b->val;
+            if (a_val != b_val)
+            {
+                p_b = p_b->next;
+            }
+            else
+            {
+                // b_val = a_val
+                flag = 0;
+                break;
+            }
+        }
+        if (flag == 1)
+        {
+            if (p_a == head_a)
+            {
+                LinkedNode *temp = head_a;
+                head_a = head_a->next;
+                delete temp;
+                p_a = head_a;
+            }
+            else
+            {
+                LinkedNode *fast = head_a->next;
+                LinkedNode *slow = head_a;
+                while (fast->val != p_a->val)
+                {
+                    fast = fast->next;
+                    if (fast->next == nullptr)
+                    {
+                        p_a = nullptr;
+                        break;
+                    }
+                    slow = slow->next;
+                }
+                slow->next = fast->next;
+                delete fast;
+            }
+        }
+        else
+        {
+            p_a = p_a->next;
+        }
+    }
+}
+
+// @ 法二 快慢指针法
+// 时间复杂度为 n
+// 测试集丰富 相当细节
+#include <iostream>
+
+struct LinkedNode
+{
+    int val;
+    LinkedNode *next;
+    LinkedNode(int num = 0) : val(num), next(nullptr) {}
+};
+
+void Solution(LinkedNode *&head_a, LinkedNode *head_b);
+
+int main(void)
+{
+    // LinkedNode *head_a = new LinkedNode(2);
+    // head_a->next = new LinkedNode(4);
+    // head_a->next->next = new LinkedNode(6);
+    // head_a->next->next->next = new LinkedNode(8);
+
+    // LinkedNode *head_a = new LinkedNode(4);
+    // head_a->next = new LinkedNode(6);
+    // head_a->next->next = new LinkedNode(8);
+    // head_a->next->next->next = new LinkedNode(10);
+
+    LinkedNode *head_a = new LinkedNode(6);
+    head_a->next = new LinkedNode(8);
+    head_a->next->next = new LinkedNode(10);
+    head_a->next->next->next = new LinkedNode(12);
+
+    // LinkedNode *head_a = new LinkedNode(8);
+    // head_a->next = new LinkedNode(10);
+    // head_a->next->next = new LinkedNode(12);
+    // head_a->next->next->next = new LinkedNode(14);
+
+    LinkedNode *head_b = new LinkedNode(4);
+    head_b->next = new LinkedNode(6);
+    head_b->next->next = new LinkedNode(8);
+    head_b->next->next->next = new LinkedNode(10);
+    Solution(head_a, head_b);
+
+    LinkedNode *temp = head_a;
+
+    while (temp != nullptr)
+    {
+        std::cout << temp->val << " ";
+        temp = temp->next;
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+void Solution(LinkedNode *&head_a, LinkedNode *head_b)
+{
+    LinkedNode *p_a(head_a);
+    LinkedNode *p_b(head_b);
+
+    while (p_a != nullptr && p_b != nullptr)
+    {
+        int a_val = p_a->val;
+        int b_val = p_b->val;
+        if (a_val < b_val)
+        {
+            LinkedNode *temp = p_a;
+            p_a = p_a->next;
+            head_a = p_a;
+            delete temp;
+        }
+        else if (a_val == b_val)
+        {
+            p_a = p_a->next;
+            p_b = p_b->next;
+        }
+        else
+        {
+            // a_val>b_val
+            p_b = p_b->next;
+        }
+        if (p_b == nullptr && p_a != nullptr)
+        {
+            LinkedNode *temp = head_a;
+            while (temp->next != p_a)
+            {
+                temp = temp->next;
+            }
+            temp->next = nullptr;
+        }
+    }
+}
+
+// // 第二题
+// // @ 法一 暴力排序后查找
+// // 思路是快排加去重
+// // 尽可能的优化快排的效率
+// // 去重是面对多个重复元素时影响返回值
+// // 时间复杂度是n * log n
+// // 较原来返回第几小的值,多实现了排序加去重,效率较低
+
+// #include <iostream>
+// #include <vector>
+// #include <algorithm>
+
+// void Swap(std::vector<int> &nums, int i, int j);
+// // 优化算法 尽可能的选择不大不小的数作为基数
+// int GetMedian(std::vector<int> &nums, int left, int mid, int right);
+// // 哨兵划分 分成两个子数组
+// int Partition(std::vector<int> &nums, int left, int right);
+// // 递归
+// void QuickSort(std::vector<int> &nums, int left, int right);
+
+// int Solution(std::vector<int> &arr, int k);
+
+// int main(void)
+// {
+//     // 如果无序且无重复,运行正常
+//     std::vector<int> arr_0{1, 9, 6, 4, 2, 3, 5, 7, 8};
+//     // 无序但有重复时
+//     std::vector<int> arr_1{3, 5, 12, 3, 6, 8, 2, 2, 2, 3, 3, 3, 2, 3, 7, 89, 2};
+//     std::cout << Solution(arr_1, 3) << std::endl;
+
+//     return 0;
+// }
+
+// int Solution(std::vector<int> &arr, int k)
+// {
+//     QuickSort(arr, 0, arr.size() - 1);
+//     // 去重函数
+//     std::unique(arr.begin(), arr.end());
+//     return arr[k - 1];
+// }
+
+// void Swap(std::vector<int> &nums, int i, int j)
+// {
+//     // 也可以用三个异或 效率其实差不多 而且处理不了相等元素
+//     int temp(nums[i]);
+//     nums[i] = nums[j];
+//     nums[j] = temp;
+// }
+
+// int GetMedian(std::vector<int> &nums, int left, int mid, int right)
+// {
+//     // 非常巧妙的异或
+//     // 异或是0^0=1^1=0,0^1=1^0=1
+//     // 这个函数的目的是获得 传进来三个数的中位数
+//     // 当if语句成立时，必定是一个比left大一个比left小 因此直接return left
+//     if (nums[left] < nums[mid] ^ nums[left] < nums[right])
+//     {
+//         return left;
+//     }
+//     else if (nums[mid] < nums[left] ^ nums[mid] < nums[right])
+//     {
+//         return mid;
+//     }
+//     else
+//     {
+//         return right;
+//     }
+// }
+// int Partition(std::vector<int> &nums, int left, int right)
+// {
+//     // 先取到合适的基数 将其放到最左端作为基数
+//     int mid = GetMedian(nums, left, (left + right) / 2, right);
+//     Swap(nums, left, mid);
+//     // 左右哨兵
+//     int i = left;
+//     int j = right;
+//     while (i < j)
+//     {
+//         // 右边哨兵开始找第一个小于基数的元素 准备要把该元素换到右边去，如果大于或者等于就继续往左走
+//         while (i < j && nums[j] >= nums[left])
+//         {
+//             j--;
+//         }
+//         // 左边哨兵开始找第一个大于基数的元素 准备与右哨兵进行交换
+//         while (i < j && nums[i] <= nums[left])
+//         {
+//             i++;
+//         }
+//         // 当内循环结束时，左右哨兵处在各自方向上首个需要交换的位置
+//         Swap(nums, i, j);
+//         // 交换完后此时i j位置上元素符合标准则继续进行往后走
+//     }
+//     // 最终i与j处在同一个位置上，结束此次哨兵划分
+//     // 由于右边哨兵先走 所以j一定是停留在首个小于基数的元素，最后的情况左边的哨兵会与右边哨兵重合i=j于是结束循环
+//     // 而此时这个元素的值一定是小于基数的 因此交换i 与left，把基数换到中间去，这个元素去最左端
+//     Swap(nums, i, left);
+//     return i;
+// }
+// void QuickSort(std::vector<int> &nums, int left, int right)
+// {
+//     while (left < right)
+//     {
+//         // 分治策略 完成哨兵划分后 分别在进行左子数组与右子数组的哨兵划分
+//         int mid = Partition(nums, left, right);
+//         // 先处理较小的子数组 减少递归深度 可以仔细思考思考
+//         // ！后续可以再看看
+//         if (mid - left < right - mid)
+//         {
+//             QuickSort(nums, left, mid - 1);
+//             left = mid + 1;
+//         }
+//         else
+//         {
+//             QuickSort(nums, mid + 1, right);
+//             right = mid - 1;
+//         }
+//     }
+// }

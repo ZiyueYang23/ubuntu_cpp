@@ -1,7 +1,7 @@
 // @  插入排序的核心代码
 // ~ 时间复杂度n的平方
 // ~ 插入排序的性能要比冒泡或者选择排序高
-// void InsertionSort(vector<int> &nums)
+// void InsertionSort(std::vector<int> &nums)
 // {
 //     int size(nums.size());
 //     // 外循环：从第二个元素开始 第一个元素已经视为排好序
@@ -28,28 +28,26 @@
 #include <vector>
 #include <utility>
 
-using namespace std;
-
-void InsertionSort(vector<int> &nums);
+void InsertionSort(std::vector<int> &nums);
 
 int main(void)
 {
-    vector<int> nums{9, 3, 5, 2, 4, 1, 5, 6, 2, 4, 9};
+    std::vector<int> nums{9, 3, 5, 2, 4, 1, 5, 6, 2, 4, 9};
     for (auto num : nums)
     {
-        cout << num << " ";
+        std::cout << num << " ";
     }
-    cout << endl;
+    std::cout << std::endl;
     InsertionSort(nums);
     for (auto num : nums)
     {
-        cout << num << " ";
+        std::cout << num << " ";
     }
-    cout << endl;
+    std::cout << std::endl;
     return 0;
 }
 // 注意理清楚思路
-void InsertionSort(vector<int> &nums)
+void InsertionSort(std::vector<int> &nums)
 {
     int size(nums.size());
     // 外循环：从第二个元素开始 第一个元素已经视为排好序

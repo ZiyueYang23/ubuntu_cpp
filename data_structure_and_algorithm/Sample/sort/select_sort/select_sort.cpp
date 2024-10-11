@@ -4,7 +4,7 @@
 // ~ 空间复杂度是1
 // ~ 默认是小到大
 
-// void SelectSort(vector<int> &nums)
+// void SelectSort(std::vector<int> &nums)
 // {
 //     int size = nums.size();
 //     // 最后一个元素不需要排序
@@ -23,7 +23,7 @@
 //             }
 //         }
 //         // 交换函数 头文件是ntility
-//         swap(nums[i], nums[tmp]);
+//         std::swap(nums[i], nums[tmp]);
 //     }
 // }
 
@@ -34,27 +34,25 @@
 // swap 函数所需要使用的头文件
 #include <utility>
 
-using namespace std;
-
-void SelectSort(vector<int> &nums);
+void SelectSort(std::vector<int> &nums);
 
 int main(void)
 {
-    vector<int> nums{9, 3, 5, 2, 4, 1, 5, 6, 2, 4, 9};
+    std::vector<int> nums{9, 3, 5, 2, 4, 1, 5, 6, 2, 4, 9};
     for (auto num : nums)
     {
-        cout << num << " ";
+        std::cout << num << " ";
     }
-    cout << endl;
+    std::cout << std::endl;
     SelectSort(nums);
     for (auto num : nums)
     {
-        cout << num << " ";
+        std::cout << num << " ";
     }
-    cout << endl;
+    std::cout << std::endl;
     return 0;
 }
-void SelectSort(vector<int> &nums)
+void SelectSort(std::vector<int> &nums)
 {
     int size = nums.size();
     // 最后一个元素不需要排序
@@ -73,6 +71,6 @@ void SelectSort(vector<int> &nums)
             }
         }
         // 交换函数 头文件是ntility
-        swap(nums[i], nums[tmp]);
+        std::swap(nums[i], nums[tmp]);
     }
 }
