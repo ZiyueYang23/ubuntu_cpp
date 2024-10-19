@@ -2732,208 +2732,208 @@
 //     return 0;
 // }
 
-// 第一题
-// @ 法一暴力法
-// 时间复杂度为 n*n
-// 测试集丰富 相当细节
-#include <iostream>
+// // 第一题
+// // @ 法一暴力法
+// // 时间复杂度为 n*n
+// // 测试集丰富 相当细节
+// #include <iostream>
 
-struct LinkedNode
-{
-    int val;
-    LinkedNode *next;
-    LinkedNode(int num = 0) : val(num), next(nullptr) {}
-};
-// 引用这里有一点问题 为何不加引用出函数head_a的值就会变成一个很大的数字
-void Solution(LinkedNode *&head_a, LinkedNode *head_b);
+// struct LinkedNode
+// {
+//     int val;
+//     LinkedNode *next;
+//     LinkedNode(int num = 0) : val(num), next(nullptr) {}
+// };
+// // 引用这里有一点问题 为何不加引用出函数head_a的值就会变成一个很大的数字
+// void Solution(LinkedNode *&head_a, LinkedNode *head_b);
 
-int main(void)
-{
-    // LinkedNode *head_a = new LinkedNode(2);
-    // head_a->next = new LinkedNode(4);
-    // head_a->next->next = new LinkedNode(6);
-    // head_a->next->next->next = new LinkedNode(8);
+// int main(void)
+// {
+//     // LinkedNode *head_a = new LinkedNode(2);
+//     // head_a->next = new LinkedNode(4);
+//     // head_a->next->next = new LinkedNode(6);
+//     // head_a->next->next->next = new LinkedNode(8);
 
-    // LinkedNode *head_a = new LinkedNode(4);
-    // head_a->next = new LinkedNode(6);
-    // head_a->next->next = new LinkedNode(8);
-    // head_a->next->next->next = new LinkedNode(10);
+//     // LinkedNode *head_a = new LinkedNode(4);
+//     // head_a->next = new LinkedNode(6);
+//     // head_a->next->next = new LinkedNode(8);
+//     // head_a->next->next->next = new LinkedNode(10);
 
-    // LinkedNode *head_a = new LinkedNode(6);
-    // head_a->next = new LinkedNode(8);
-    // head_a->next->next = new LinkedNode(10);
-    // head_a->next->next->next = new LinkedNode(12);
+//     // LinkedNode *head_a = new LinkedNode(6);
+//     // head_a->next = new LinkedNode(8);
+//     // head_a->next->next = new LinkedNode(10);
+//     // head_a->next->next->next = new LinkedNode(12);
 
-    LinkedNode *head_a = new LinkedNode(8);
-    head_a->next = new LinkedNode(10);
-    head_a->next->next = new LinkedNode(12);
-    head_a->next->next->next = new LinkedNode(14);
+//     LinkedNode *head_a = new LinkedNode(8);
+//     head_a->next = new LinkedNode(10);
+//     head_a->next->next = new LinkedNode(12);
+//     head_a->next->next->next = new LinkedNode(14);
 
-    LinkedNode *head_b = new LinkedNode(4);
-    head_b->next = new LinkedNode(6);
-    head_b->next->next = new LinkedNode(8);
-    head_b->next->next->next = new LinkedNode(10);
-    Solution(head_a, head_b);
+//     LinkedNode *head_b = new LinkedNode(4);
+//     head_b->next = new LinkedNode(6);
+//     head_b->next->next = new LinkedNode(8);
+//     head_b->next->next->next = new LinkedNode(10);
+//     Solution(head_a, head_b);
 
-    LinkedNode *temp = head_a;
+//     LinkedNode *temp = head_a;
 
-    while (temp != nullptr)
-    {
-        std::cout << temp->val << " ";
-        temp = temp->next;
-    }
-    std::cout << std::endl;
+//     while (temp != nullptr)
+//     {
+//         std::cout << temp->val << " ";
+//         temp = temp->next;
+//     }
+//     std::cout << std::endl;
 
-    return 0;
-}
-void Solution(LinkedNode *&head_a, LinkedNode *head_b)
-{
-    LinkedNode *p_a(head_a);
-    LinkedNode *p_b(head_b);
+//     return 0;
+// }
+// void Solution(LinkedNode *&head_a, LinkedNode *head_b)
+// {
+//     LinkedNode *p_a(head_a);
+//     LinkedNode *p_b(head_b);
 
-    while (p_a != nullptr)
-    {
-        p_b = head_b;
-        bool flag = 1;
-        int a_val = p_a->val;
-        while (p_b != nullptr)
-        {
-            int b_val = p_b->val;
-            if (a_val != b_val)
-            {
-                p_b = p_b->next;
-            }
-            else
-            {
-                // b_val = a_val
-                flag = 0;
-                break;
-            }
-        }
-        if (flag == 1)
-        {
-            if (p_a == head_a)
-            {
-                LinkedNode *temp = head_a;
-                head_a = head_a->next;
-                delete temp;
-                p_a = head_a;
-            }
-            else
-            {
-                LinkedNode *fast = head_a->next;
-                LinkedNode *slow = head_a;
-                while (fast->val != p_a->val)
-                {
-                    fast = fast->next;
-                    if (fast->next == nullptr)
-                    {
-                        p_a = nullptr;
-                        break;
-                    }
-                    slow = slow->next;
-                }
-                slow->next = fast->next;
-                delete fast;
-            }
-        }
-        else
-        {
-            p_a = p_a->next;
-        }
-    }
-}
+//     while (p_a != nullptr)
+//     {
+//         p_b = head_b;
+//         bool flag = 1;
+//         int a_val = p_a->val;
+//         while (p_b != nullptr)
+//         {
+//             int b_val = p_b->val;
+//             if (a_val != b_val)
+//             {
+//                 p_b = p_b->next;
+//             }
+//             else
+//             {
+//                 // b_val = a_val
+//                 flag = 0;
+//                 break;
+//             }
+//         }
+//         if (flag == 1)
+//         {
+//             if (p_a == head_a)
+//             {
+//                 LinkedNode *temp = head_a;
+//                 head_a = head_a->next;
+//                 delete temp;
+//                 p_a = head_a;
+//             }
+//             else
+//             {
+//                 LinkedNode *fast = head_a->next;
+//                 LinkedNode *slow = head_a;
+//                 while (fast->val != p_a->val)
+//                 {
+//                     fast = fast->next;
+//                     if (fast->next == nullptr)
+//                     {
+//                         p_a = nullptr;
+//                         break;
+//                     }
+//                     slow = slow->next;
+//                 }
+//                 slow->next = fast->next;
+//                 delete fast;
+//             }
+//         }
+//         else
+//         {
+//             p_a = p_a->next;
+//         }
+//     }
+// }
 
-// @ 法二 快慢指针法
-// 时间复杂度为 n
-// 测试集丰富 相当细节
-#include <iostream>
+// // @ 法二 快慢指针法
+// // 时间复杂度为 n
+// // 测试集丰富 相当细节
+// #include <iostream>
 
-struct LinkedNode
-{
-    int val;
-    LinkedNode *next;
-    LinkedNode(int num = 0) : val(num), next(nullptr) {}
-};
+// struct LinkedNode
+// {
+//     int val;
+//     LinkedNode *next;
+//     LinkedNode(int num = 0) : val(num), next(nullptr) {}
+// };
 
-void Solution(LinkedNode *&head_a, LinkedNode *head_b);
+// void Solution(LinkedNode *&head_a, LinkedNode *head_b);
 
-int main(void)
-{
-    // LinkedNode *head_a = new LinkedNode(2);
-    // head_a->next = new LinkedNode(4);
-    // head_a->next->next = new LinkedNode(6);
-    // head_a->next->next->next = new LinkedNode(8);
+// int main(void)
+// {
+//     // LinkedNode *head_a = new LinkedNode(2);
+//     // head_a->next = new LinkedNode(4);
+//     // head_a->next->next = new LinkedNode(6);
+//     // head_a->next->next->next = new LinkedNode(8);
 
-    // LinkedNode *head_a = new LinkedNode(4);
-    // head_a->next = new LinkedNode(6);
-    // head_a->next->next = new LinkedNode(8);
-    // head_a->next->next->next = new LinkedNode(10);
+//     // LinkedNode *head_a = new LinkedNode(4);
+//     // head_a->next = new LinkedNode(6);
+//     // head_a->next->next = new LinkedNode(8);
+//     // head_a->next->next->next = new LinkedNode(10);
 
-    LinkedNode *head_a = new LinkedNode(6);
-    head_a->next = new LinkedNode(8);
-    head_a->next->next = new LinkedNode(10);
-    head_a->next->next->next = new LinkedNode(12);
+//     LinkedNode *head_a = new LinkedNode(6);
+//     head_a->next = new LinkedNode(8);
+//     head_a->next->next = new LinkedNode(10);
+//     head_a->next->next->next = new LinkedNode(12);
 
-    // LinkedNode *head_a = new LinkedNode(8);
-    // head_a->next = new LinkedNode(10);
-    // head_a->next->next = new LinkedNode(12);
-    // head_a->next->next->next = new LinkedNode(14);
+//     // LinkedNode *head_a = new LinkedNode(8);
+//     // head_a->next = new LinkedNode(10);
+//     // head_a->next->next = new LinkedNode(12);
+//     // head_a->next->next->next = new LinkedNode(14);
 
-    LinkedNode *head_b = new LinkedNode(4);
-    head_b->next = new LinkedNode(6);
-    head_b->next->next = new LinkedNode(8);
-    head_b->next->next->next = new LinkedNode(10);
-    Solution(head_a, head_b);
+//     LinkedNode *head_b = new LinkedNode(4);
+//     head_b->next = new LinkedNode(6);
+//     head_b->next->next = new LinkedNode(8);
+//     head_b->next->next->next = new LinkedNode(10);
+//     Solution(head_a, head_b);
 
-    LinkedNode *temp = head_a;
+//     LinkedNode *temp = head_a;
 
-    while (temp != nullptr)
-    {
-        std::cout << temp->val << " ";
-        temp = temp->next;
-    }
-    std::cout << std::endl;
+//     while (temp != nullptr)
+//     {
+//         std::cout << temp->val << " ";
+//         temp = temp->next;
+//     }
+//     std::cout << std::endl;
 
-    return 0;
-}
-void Solution(LinkedNode *&head_a, LinkedNode *head_b)
-{
-    LinkedNode *p_a(head_a);
-    LinkedNode *p_b(head_b);
+//     return 0;
+// }
+// void Solution(LinkedNode *&head_a, LinkedNode *head_b)
+// {
+//     LinkedNode *p_a(head_a);
+//     LinkedNode *p_b(head_b);
 
-    while (p_a != nullptr && p_b != nullptr)
-    {
-        int a_val = p_a->val;
-        int b_val = p_b->val;
-        if (a_val < b_val)
-        {
-            LinkedNode *temp = p_a;
-            p_a = p_a->next;
-            head_a = p_a;
-            delete temp;
-        }
-        else if (a_val == b_val)
-        {
-            p_a = p_a->next;
-            p_b = p_b->next;
-        }
-        else
-        {
-            // a_val>b_val
-            p_b = p_b->next;
-        }
-        if (p_b == nullptr && p_a != nullptr)
-        {
-            LinkedNode *temp = head_a;
-            while (temp->next != p_a)
-            {
-                temp = temp->next;
-            }
-            temp->next = nullptr;
-        }
-    }
-}
+//     while (p_a != nullptr && p_b != nullptr)
+//     {
+//         int a_val = p_a->val;
+//         int b_val = p_b->val;
+//         if (a_val < b_val)
+//         {
+//             LinkedNode *temp = p_a;
+//             p_a = p_a->next;
+//             head_a = p_a;
+//             delete temp;
+//         }
+//         else if (a_val == b_val)
+//         {
+//             p_a = p_a->next;
+//             p_b = p_b->next;
+//         }
+//         else
+//         {
+//             // a_val>b_val
+//             p_b = p_b->next;
+//         }
+//         if (p_b == nullptr && p_a != nullptr)
+//         {
+//             LinkedNode *temp = head_a;
+//             while (temp->next != p_a)
+//             {
+//                 temp = temp->next;
+//             }
+//             temp->next = nullptr;
+//         }
+//     }
+// }
 
 // // 第二题
 // // @ 法一 暴力排序后查找
@@ -3053,3 +3053,428 @@ void Solution(LinkedNode *&head_a, LinkedNode *head_b)
 //         }
 //     }
 // }
+
+// // @ 顺序栈
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+// class ArrayStack
+// {
+// private:
+//     vector<int> my_stack_;
+
+// public:
+//     // 入栈
+//     void Push(int val);
+//     // 出栈
+//     int Pop();
+//     // size
+//     int GetSize();
+//     // top
+//     int GetTop();
+//     // isempty
+//     bool IsEmpty();
+// };
+// int main(void)
+// {
+//     ArrayStack my_stack;
+//     my_stack.Push(0);
+//     my_stack.Push(1);
+//     my_stack.Push(2);
+//     my_stack.Push(3);
+//     my_stack.Push(4);
+//     cout << "stack size is :" << my_stack.GetSize() << endl;
+//     cout << my_stack.Pop() << endl;
+//     cout << my_stack.Pop() << endl;
+//     cout << my_stack.Pop() << endl;
+//     cout << my_stack.Pop() << endl;
+//     cout << my_stack.Pop() << endl;
+//     // cout << my_stack.Pop() << endl;
+
+//     return 0;
+// }
+// // 执行结果
+// // stack size is : 5
+// // 4
+// // 3
+// // 2
+// // 1
+// // 0
+// // 当我们将mian函数中最后一行注释去掉后执行到最后一行会报错,提示栈为空.
+
+// // 入栈
+// void ArrayStack::Push(int val)
+// {
+//     my_stack_.push_back(val);
+// }
+// // 出栈
+// int ArrayStack::Pop()
+// {
+//     // pop_back 不可以处理空数组 否则会出现问题
+
+//     int num = GetTop();
+//     my_stack_.pop_back();
+//     return num;
+// }
+// // size
+// int ArrayStack::GetSize()
+// {
+//     return my_stack_.size();
+// }
+// // top
+// int ArrayStack::GetTop()
+// {
+//     if (IsEmpty() == true)
+//     {
+//         throw("栈为空");
+//     }
+//     else
+//     {
+//         return my_stack_.back();
+//     }
+// }
+// // isempty
+// bool ArrayStack::IsEmpty()
+// {
+//     if (my_stack_.size() == 0)
+//     {
+//         return true;
+//     }
+//     else
+//     {
+//         return false;
+//     }
+// }
+
+// // @ 链栈
+// #include <iostream>
+// using namespace std;
+
+// struct ListNode
+// {
+//     int val;
+//     ListNode *next;
+//     ListNode(int num = 0) : val(num), next(nullptr) {}
+// };
+
+// class LinkedListStack
+// {
+// private:
+//     ListNode *head_;
+//     int size_;
+//     ListNode *tail_;
+
+// public:
+//     LinkedListStack() : head_(nullptr), size_(0), tail_(nullptr) {}
+//     void Push(int val);
+//     int Pop();
+//     int GetTop();
+//     bool IsEmpty();
+//     int GetSize();
+// };
+// int main(void)
+// {
+//     LinkedListStack my_stack;
+//     my_stack.Push(0);
+//     my_stack.Push(1);
+//     my_stack.Push(2);
+//     my_stack.Push(3);
+//     my_stack.Push(4);
+//     cout << "stack size is :" << my_stack.GetSize() << endl;
+//     cout << my_stack.Pop() << endl;
+//     cout << my_stack.Pop() << endl;
+//     cout << my_stack.Pop() << endl;
+//     cout << my_stack.Pop() << endl;
+//     cout << my_stack.Pop() << endl;
+//     cout << my_stack.Pop() << endl;
+
+//     return 0;
+// }
+
+// // 输出结果
+// // stack size is : 5
+// // 4
+// // 3
+// // 2
+// // 1
+// // 0
+// // 当我们将mian函数中的最后一行删除注释的时候,会抛出栈为空的提示
+
+// void LinkedListStack::Push(int val)
+// {
+//     if (IsEmpty() == true)
+//     {
+//         head_ = new ListNode(val);
+//         tail_ = head_;
+//     }
+//     else
+//     {
+//         tail_->next = new ListNode(val);
+//         tail_ = tail_->next;
+//     }
+//     size_++;
+// }
+// int LinkedListStack::Pop()
+// {
+//     if (size_ > 1)
+//     {
+//         ListNode *temp = head_;
+//         while (temp->next != tail_)
+//         {
+//             temp = temp->next;
+//         }
+//         int num = tail_->val;
+//         tail_ = temp;
+//         temp = temp->next;
+//         tail_->next = nullptr;
+//         delete temp;
+//         size_--;
+//         return num;
+//     }
+//     else if (size_ == 1)
+//     {
+//         int num = head_->val;
+//         delete head_;
+//         head_ = nullptr;
+//         tail_ = nullptr;
+//         return num;
+//     }
+//     else
+//     {
+//         throw("栈为空");
+//     }
+// }
+
+// int LinkedListStack::GetTop()
+// {
+//     if (IsEmpty() == true)
+//     {
+//         throw("栈为空");
+//     }
+//     else
+//     {
+//         return tail_->val;
+//     }
+// }
+// bool LinkedListStack::IsEmpty()
+// {
+//     if (head_ == nullptr)
+//     {
+//         return true;
+//     }
+//     else
+//     {
+//         return false;
+//     }
+// }
+// int LinkedListStack::GetSize()
+// {
+//     return size_;
+// }
+
+// // @ 递归实现 Ackermann函数
+// #include <iostream>
+// using namespace std;
+// int Ackermann(int m, int n);
+// int main(void)
+// {
+//     cout << "Ackermann(2,1):" << Ackermann(2, 1) << endl;
+//     // Ackermann(2,1):2
+//     return 0;
+// }
+// // Ackermann(2,1)的运算过程是:
+// // 1: m1=2 n1=1 进入函数,此时m,n都不为0进行递归
+// // 2: m2=1,n2=Ackermann(2,0),先把n算出来 n此时有进入一次递归
+// // 3: m3=2,n3=0 此时n3等于0 又进入一次递归
+// // 4: m4=1,n4=1 此时m,n都不为0 继续递归
+// // 5: m5=0,n5=Ackermann(1,0) 继续递归
+// // 6: m6=1,n6=0 ,n6=0继续递归
+// // 7: m7=0,n7=1,此时m=0 结果为n+1 =2
+// // 开始回推
+// // 到第5层:m5=0 ,n5=2 此时算出 n+1=3
+// // 到第2层: m2=1,n2=3
+// // 8: m8=0,n8=Ackermann(1,2)
+// // 9: m9=1,n9=2
+// // 10: m10=0,n10=Ackermann(1,1)
+// // 11: m11=0,n11=Ackermann(1,0)
+// // 12: m12=1,n12=0
+// // 13: m14=0,n14=1  n+1=2
+// // 到第11层: m11=0,m11=2
+// // 到第10层: m10=0,m10=3
+// // 到第8层: m8=0,n8=4
+// // 此时可以得出 Ackermann(1,3)==Ackermann(0,4)==5==Ackermann(2,1)
+// // 梳理一遍
+// // Ackermann(2,1)==Ackermann(1,Ackermann(2,0))
+// // Ackermann(2,0)==Ackermann(1,1)==Ackermann(0,Ackermann(1,0))==Ackermann(0,2)==3
+// // Ackermann(1,Ackermann(2,0))=Ackermann(1,3)
+// // Ackermann(1,3)==Ackermann(0,Ackermann(1,2))
+// // Ackermann(1,2)==Ackermann(0,Ackermann(1,1))
+// // Ackermann(1,1)==Ackermann(0,Ackermannn(1,0))==3
+// // Ackermann(1,2)==Ackermann(0,Ackermann(1,1))==Ackermann(0,3)==4
+// // Ackermann(1,3)==Ackermann(0,Ackermann(1,2))==Ackermann(0,4)==5
+// //  综上:Ackermann(2,1)==Ackermann(1,3)==5
+
+// int Ackermann(int m, int n)
+// {
+//     if (m == 0)
+//     {
+//         return n + 1;
+//     }
+//     else if (m > 0 && n == 0)
+//     {
+//         return Ackermann(m - 1, 1);
+//     }
+//     else
+//     {
+//         return Ackermann(m - 1, Ackermann(m, n - 1));
+//     }
+// }
+
+// // @ 用自己实现的顺序栈 完成非递归版本的Ackermann函数
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+// class ArrayStack
+// {
+// private:
+//     vector<int> my_stack_;
+
+// public:
+//     // 入栈
+//     void Push(int val);
+//     // 出栈
+//     int Pop();
+//     // size
+//     int GetSize();
+//     // top
+//     int GetTop();
+//     // isempty
+//     bool IsEmpty();
+// };
+
+// // 非递归计算 Ackermann 函数
+// int Ackermann(int m, int n);
+
+// int main(void)
+// {
+//     int m, n;
+//     cout << "输入 m 和 n: ";
+//     cin >> m >> n;
+//     cout << "Ackermann(" << m << ", " << n << ") = " << Ackermann(m, n) << endl;
+//     return 0;
+
+//     return 0;
+// }
+
+// // 非递归计算 Ackermann 函数
+// int Ackermann(int m, int n)
+// {
+//     ArrayStack my_stack;
+//     // 将初始 m 值压入栈
+//     my_stack.Push(m);
+
+//     while (!my_stack.IsEmpty())
+//     {
+//         // 取栈顶的 m
+//         m = my_stack.GetTop();
+//         // 弹出栈顶的 m
+//         my_stack.Pop();
+
+//         if (m == 0)
+//         {
+//             // 如果 m == 0，n 增加 1i
+//             n += 1;
+//         }
+//         else if (n == 0)
+//         {
+//             // 如果 m > 0 且 n == 0，压入 (m - 1, 1)
+//             my_stack.Push(m - 1);
+//             n = 1;
+//         }
+//         else
+//         {
+//             // 先压入 (m - 1) 的调用
+//             my_stack.Push(m - 1);
+//             // 再次压入 m 以模拟递归的第二次调用
+//             my_stack.Push(m);
+//             // n 递减
+//             n -= 1;
+//         }
+//     }
+
+//     return n;
+// }
+
+// void ArrayStack::Push(int val)
+// {
+//     my_stack_.push_back(val);
+// }
+// int ArrayStack::Pop()
+// {
+//     // pop_back 不可以处理空数组 否则会出现问题
+
+//     int num = GetTop();
+//     my_stack_.pop_back();
+//     return num;
+// }
+
+// int ArrayStack::GetSize()
+// {
+//     return my_stack_.size();
+// }
+
+// int ArrayStack::GetTop()
+// {
+//     if (IsEmpty() == true)
+//     {
+//         throw("栈为空");
+//     }
+//     else
+//     {
+//         return my_stack_.back();
+//     }
+// }
+
+// bool ArrayStack::IsEmpty()
+// {
+//     if (my_stack_.size() == 0)
+//     {
+//         return true;
+//     }
+//     else
+//     {
+//         return false;
+//     }
+// }
+
+// @ 约瑟夫环问题 使用顺序表(vector)解决
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+vector<int> josephus(int n, int m);
+
+int mian(void)
+{
+    return 0;
+}
+
+vector<int> josephus(int n, int m)
+{
+    vector<int> people(n);
+    vector<int> result;
+    for (int i = 0; i < n; i++)
+    {
+        people[i] = i + 1;
+    }
+    int index(0);
+    while (people.empty() != true)
+    {
+        index = (index + m - 1) % people.size();
+        result.push_back(people[index]);
+        people.erase(r31233 nmijbkkl.hum)
+    }
+}

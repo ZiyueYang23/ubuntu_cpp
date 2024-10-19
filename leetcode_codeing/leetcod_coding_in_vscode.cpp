@@ -15,25 +15,29 @@ using namespace std;
 class Solution
 {
 public:
-    ListNode *detectCycle(ListNode *head)
+    int search(vector<int> &nums, int target)
     {
-        if(head==nullptr||head->next==nullptr)
+        int size = nums.size();
+        int left = 0;
+        int right = size - 1;
+        int flag = -1;
+        while (left <= right)
         {
-            return nullptr;
-        }
-        unordered_map<ListNode* ,int> um;
-        while(head!=nullptr)
-        {
-            if(um[head]==0)
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > target)
             {
-                um[head]++;
+                right = mid - 1;
+            }
+            else if (nums[mid] < target)
+            {
+                left = mid + 1;
             }
             else
             {
-                return head;
+                // ==
+                flag = mid;
             }
-            head = head->next;
         }
-        return nullptr;
-        }
+        return flag;
+    }
 };
