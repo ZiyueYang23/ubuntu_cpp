@@ -3449,32 +3449,263 @@
 //     }
 // }
 
-// @ 约瑟夫环问题 使用顺序表(vector)解决
+// // @ 约瑟夫环问题 使用顺序表(vector)解决
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// vector<int> josephus(int n, int m);
+
+// int main()
+// {
+//     int n, m;
+//     cout << "请输入总人数n和报数的数m: ";
+//     cin >> n >> m;
+
+//     vector<int> result = josephus(n, m); // 调用函数计算出列顺序
+
+//     cout << "出列顺序为: ";
+//     for (int num : result)
+//     {
+//         cout << num << " ";
+//     }
+//     cout << endl;
+
+//     return 0;
+// }
+// vector<int> josephus(int n, int m)
+// {
+//     // 原数组
+//     vector<int> people(n);
+//     // 结果存放输出数组
+//     vector<int> result;
+//     // 数组初始化
+//     for (int i = 0; i < n; i++)
+//     {
+//         people[i] = i + 1;
+//     }
+//     // 下标
+//     int index(0);
+
+//     while (people.empty() != true)
+//     {
+//         // 精髓之处 首先通过取余来确保不会越界访问
+//         // 比如 1,2,3...,9,10 m=3
+//         // 就会先取 3 6 9
+//         // 取9的时候是 1,2,4,5,7,8,9,10
+//         // 到9的时候下标此时是6 (6+3-1)%7 此时index更新成1就是取新数组下标为1的出列
+//         // 此时完整新数组是1,2,4,5,7,8,10
+//         // 下标为1也就是值为2的元素出列 因此结果就是2.
+//         index = (index + m - 1) % people.size();
+//         // 出列并且更新size
+//         result.push_back(people[index]);
+//         // 需要注意的是从begin开始移动下标
+//         people.erase(people.begin() + index);
+//     }
+//     return result;
+// }
+
+// // @ 一元多项式求和 单链表存储多项式  自己写的测试版 有些问题 还没写出来
+// // coef是系数 exp是指数
+// // 多项式相加逻辑就是两个链表
+
+// #include <iostream>
+
+// struct LinkedList
+// {
+//     // 系数
+//     int coef;
+//     // 指数
+//     int exp;
+//     LinkedList *next;
+// };
+// LinkedList *Solution(LinkedList *p, LinkedList *q);
+// int main(void)
+// {
+//     return 0;
+// }
+
+// LinkedList *Solution(LinkedList *p, LinkedList *q)
+// {
+//     LinkedList *p_pre = p;
+//     LinkedList *p_cur = nullptr;
+//     LinkedList *q_pre = q;
+//     LinkedList *q_cur = nullptr;
+
+//     while (p_pre != nullptr && q_pre != nullptr)
+//     {
+//         if(p_pre->exp<q_pre->exp)
+//         {
+//             p_cur = p_pre;
+//             p_pre = p_pre->next;
+//         }
+//         else if(p_pre->exp>q_pre->exp)
+//         {
+//             // LinkedList*temp = q_pre->next;
+//             q_cur->next = q_cur->next->next;
+
+//             p_cur->next = q_pre;
+//             q_pre->next = p_pre;
+
+//             q_pre = q_cur->next;
+
+//             p_cur = p_cur->next;
+//         }
+//         else if(p_pre->exp==q_pre->exp)
+//         {
+//             p_pre->coef = p_pre->coef + p_pre->coef;
+//             if(p_pre->coef==0)
+//             {
+//                 p_cur->next = p_cur->next->next;
+//                 p_pre->next = nullptr;
+//                 delete p_pre;
+//                 p_pre = p_cur->next;
+//             }
+//             else
+//             {
+//                 p_pre = p_pre->next;
+//                 p_cur = p_cur->next;
+//             }
+
+//             q_cur->next = q_cur->next->next;
+//             q_pre->next = nullptr;
+//             delete q_pre;
+//             q_pre = q_cur->next;
+//         }
+//     }
+
+//     if(q_pre!=nullptr)
+//     {
+//         p_cur->next=
+//     }
+// }
+
+
 #include <iostream>
-#include <vector>
-
+#include <cstdlib>
 using namespace std;
-
-vector<int> josephus(int n, int m);
-
-int mian(void)
+struct LinkedList
 {
-    return 0;
-}
-
-vector<int> josephus(int n, int m)
+    int coef;
+    int exp;
+    LinkedList *next;
+} ;
+void Create(LinkedList *&L, int n) // 创建  从exp小到大输入。
 {
-    vector<int> people(n);
-    vector<int> result;
+    LinkedList *s;
+    int a, b;
+    L = new LinkedList;
+    L->next = NULL;
     for (int i = 0; i < n; i++)
     {
-        people[i] = i + 1;
+        s = (LinkedList *)malloc(sizeof(LinkedList));
+        cout << "输入第" << i + 1 << "个系数";
+        cin >> a;
+        s->coef = a;
+        cout << "输入第" << i + 1 << "个指数";
+        cin >> b;
+        s->exp = b;
+        s->next = L->next;
+        L->next = s;
     }
-    int index(0);
-    while (people.empty() != true)
+}
+bool Insert(LinkedList *&L, int i, LinkedList *K)
+{
+    LinkedList *p = L, *s;
+    if (i < 0)
+        return false;
+    for (int j = 0; j < i && p->next != NULL; j++)
     {
-        index = (index + m - 1) % people.size();
-        result.push_back(people[index]);
-        people.erase(r31233 nmijbkkl.hum)
+        p = p->next;
+    }
+    if (p == NULL)
+    {
+        return false;
+    }
+    else
+    {
+        s = (LinkedList *)malloc(sizeof(LinkedList));
+        s->coef = K->next->coef;
+        s->exp = K->next->exp;
+        s->next = p->next;
+        p->next = s;
+        return true;
+    }
+}
+bool Dele(LinkedList *&L, int i)
+{
+    LinkedList *p = L, *s;
+    if (i < 0)
+        return false;
+    for (int j = 0; j < i && p->next != NULL; j++)
+    {
+        p = p->next;
+    }
+    if (p == NULL)
+    {
+        return false;
+    }
+    else
+    {
+        s = p->next;
+
+        p->next = s->next;
+        free(s);
+        return true;
+    }
+}
+int main()
+{
+    int m, n, k = 0;
+    LinkedList *p, *q;
+    cout << "第一个的项数" << endl;
+    cin >> m;
+    Create(p, m);
+    cout << "第二个的项数" << endl;
+    cin >> n;
+    Create(q, n);
+    LinkedList *p1 = p, *q1 = q;
+    while (p1->next != NULL && q1->next != NULL)
+    {
+
+        if (p1->next->exp > q1->next->exp) // 依次比较，p的大就和q后面的比
+        {
+            p1 = p1->next;
+            k++;
+        }
+        else if (p1->next->exp < q1->next->exp) // p小于就把q的那个插入p
+        {
+            Insert(p, k, q1);
+            q1 = q1->next;
+        }
+        else if (p1->next->exp == q1->next->exp) // 相同就相加
+        {
+            p1->next->coef = p1->next->coef + q1->next->coef;
+            if (p1->next->coef == 0) // 发现相加后，他们的系数为0 ，删掉这一个。
+            {
+                Dele(p, k);
+                q1 = q1->next;
+            }
+            else
+            {
+                p1 = p1->next;
+                q1 = q1->next;
+                k++;
+            }
+        }
+    }
+
+    if (q1->next != NULL)
+    {
+        p1->next = q1->next;
+    }
+    while (p->next != NULL) // 输出
+    {
+        if (p->next->next == NULL)
+            cout << p->next->coef << "*x^" << p->next->exp << endl;
+        else
+            cout << p->next->coef << "*x^" << p->next->exp << "+";
+        p = p->next;
     }
 }
